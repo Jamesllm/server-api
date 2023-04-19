@@ -4,14 +4,13 @@ const getSeries = async (req, res) => {
   try {
     const connection = await getConnection();
     const result =
-      await connection.query(`SELECT series.id, series.title, series.path, series.information, 
+      await connection.query(`SELECT series.id, series.title, series.information, 
       series.trailer, series.banner, series.poster, serie_categorys.category, 
-      serie_languages.language, serie_states.state, serie_seasons.season, plans.planType
+      serie_languages.language, serie_states.state, serie_seasons.season
       FROM series INNER JOIN serie_categorys ON series.idCategory = serie_categorys.id 
                   INNER JOIN serie_languages ON series.idLanguage = serie_languages.id
                   INNER JOIN serie_states ON series.idState = serie_states.id
-                  INNER JOIN serie_seasons ON series.idSeason = serie_seasons.id
-                  INNER JOIN plans ON series.idPlan = plans.id`);
+                  INNER JOIN serie_seasons ON series.idSeason = serie_seasons.id`);
     res.json(result);
   } catch (error) {
     res.status(500);
